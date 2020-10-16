@@ -23,13 +23,13 @@ while True:
 		for i, line in enumerate(f):
 			if i == choice:
 				start = time.time()
-				attempt = input('\n' + line)
+				attempt = input('\n' + line + '\n')
 				end = time.time()
 				break
 	elapsed = end - start
 	words = len(line.split(' '))
 	wpm = words / (elapsed / 60)
 	s = SequenceMatcher(None, attempt.rstrip(), line.rstrip())
-	print('SPEED:', int(wpm), 'wpm')
+	print('\nSPEED:', int(wpm), 'wpm')
 	print('TIME:', str(int(elapsed)) + 's')
 	print('ACCURACY:', str(int(s.ratio() * 100)) + '%')
