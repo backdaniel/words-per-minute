@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import sys, random, time
+from difflib import SequenceMatcher
+
+def file_len(fname):
+	with open(fname) as f:
+		for i, _ in enumerate(f):
+			pass
+		return i + 1
+
+length = file_len(sys.argv[1])
+
+print('ARE YOU READY TO TEST YOUR TYPING SPEED?')
+
+while True:
+	input('\nPRESS ENTER...')
+	for i in range(3, 0, -1):
+		print(i)
+		time.sleep(1)
+	choice = random.randint(0, length - 1)
+	with open(sys.argv[1]) as f:
+		for i, line in enumerate(f):
+			if i == choice:
+				start = time.time()
+				attempt = input('\n' + line)
+				end = time.time()
+				break
+	elapsed = end - start
+	words = len(line.split(' '))
+	wpm = words / (elapsed / 60)
+	s = SequenceMatcher(None, attempt.rstrip(), line.rstrip())
+	print('SPEED:', int(wpm), 'wpm')
+	print('TIME:', str(int(elapsed)) + 's')
+	print('ACCURACY:', str(int(s.ratio() * 100)) + '%')
