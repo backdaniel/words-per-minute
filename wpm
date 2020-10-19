@@ -9,26 +9,31 @@ def file_len(fname):
 			pass
 		return i + 1
 
-length = file_len(sys.argv[1])
+def main():
+	length = file_len(sys.argv[1])
+	while True:
+		for i in range(3, 0, -1):
+			print(i)
+			time.sleep(1)
+		choice = random.randint(0, length - 1)
+		with open(sys.argv[1]) as f:
+			for i, line in enumerate(f):
+				if i == choice:
+					start = time.time()
+					attempt = input('\n' + line + '\n')
+					end = time.time()
+					break
+		elapsed = end - start
+		words = len(line.split(' '))
+		wpm = words / (elapsed / 60)
+		s = SequenceMatcher(None, attempt.rstrip(), line.rstrip())
+		print('\nSPEED:', int(wpm), 'wpm')
+		print('TIME:', str(int(elapsed)) + 's')
+		print('ACCURACY:', str(int(s.ratio() * 100)) + '%')
+		input('\nPRESS ENTER...')
 
-while True:
-	for i in range(3, 0, -1):
-		print(i)
-		time.sleep(1)
-	choice = random.randint(0, length - 1)
-	with open(sys.argv[1]) as f:
-		for i, line in enumerate(f):
-			if i == choice:
-				start = time.time()
-				attempt = input('\n' + line + '\n')
-				end = time.time()
-				break
-	elapsed = end - start
-	words = len(line.split(' '))
-	wpm = words / (elapsed / 60)
-	s = SequenceMatcher(None, attempt.rstrip(), line.rstrip())
-	print('\nSPEED:', int(wpm), 'wpm')
-	print('TIME:', str(int(elapsed)) + 's')
-	print('ACCURACY:', str(int(s.ratio() * 100)) + '%')
-	if input('\n' + str(['next', 'exit']) + ' ') == 'exit':
-		sys.exit()
+if __name__ == '__main__':
+	try:
+		main()
+	except KeyboardInterrupt:
+		print()
