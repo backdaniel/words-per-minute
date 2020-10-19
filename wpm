@@ -11,10 +11,7 @@ def file_len(fname):
 
 length = file_len(sys.argv[1])
 
-print('ARE YOU READY TO TEST YOUR TYPING SPEED?')
-
 while True:
-	input('\nPRESS ENTER...')
 	for i in range(3, 0, -1):
 		print(i)
 		time.sleep(1)
@@ -33,3 +30,5 @@ while True:
 	print('\nSPEED:', int(wpm), 'wpm')
 	print('TIME:', str(int(elapsed)) + 's')
 	print('ACCURACY:', str(int(s.ratio() * 100)) + '%')
+	if input('\n' + str(['next', 'exit']) + ' ') == 'exit':
+		sys.exit()
